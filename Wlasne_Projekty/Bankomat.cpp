@@ -6,8 +6,8 @@
 class CashPoint {
 private:
 	unsigned int m_PIN;
-	bool privilage = false;
-	long double cash = 0;
+	bool m_privilage = false;
+	long double m_cash = 0;
 public:
 	void SetPin(unsigned short int& PIN)
 	{
@@ -22,14 +22,14 @@ public:
 	{
 		if (m_PIN == PIN)
 		{
-			privilage = true;
+			m_privilage = true;
 		}
-		if (privilage)
+		if (m_privilage)
 		{
 			LOG("Dostep zostal przyznany");
 			std::cout << std::endl;
 		}
-		if (!privilage)
+		if (!m_privilage)
 		{
 			LOG("Brak dostepu do karty");
 			LOG("Koncze dzialanie");
@@ -39,7 +39,7 @@ public:
 
 	void Show_Balance()
 	{
-		std::cout << "Na koncie jest: " << cash << " zl" << std::endl << std::endl;
+		std::cout << "Na koncie jest: " << m_cash << " zl" << std::endl << std::endl;
 		ShowMenu();
 	}
 
@@ -61,7 +61,7 @@ public:
 		LOG("Wyplata: ");
 		long double Withdraw;
 		std::cin >> Withdraw;
-		if (cash - fabs(Withdraw) >= 0)
+		if (m_cash - fabs(Withdraw) >= 0)
 		{
 			Update_Cash(-fabs(Withdraw));
 		}
@@ -76,7 +76,7 @@ public:
 
 	void Update_Cash(const long double Money)
 	{
-		cash += Money;
+		m_cash += Money;
 	}
 
 	void ShowMenu()
