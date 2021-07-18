@@ -1,18 +1,19 @@
 #include <iostream>
 #include <windows.h>
 #include <cmath>
-#define LOG(message) std::cout << message << std::endl;
 
+#define LOG(message) std::cout << message << std::endl;
 class CashPoint {
 private:
 	unsigned int m_PIN;
 	bool m_privilage = false;
 	long double m_cash = 0;
+
 public:
 	void SetPin(unsigned short int& PIN)
 	{
 		m_PIN = PIN;
-		LOG("PIN zostal ustawionyyy");
+		LOG("PIN zostal ustawiony");
 		Sleep(1000); LOG("2");
 		Sleep(1000); LOG("1");
 		Sleep(1000);
@@ -20,22 +21,26 @@ public:
 	}
 	void VerifyPin(unsigned short int& PIN)
 	{
-		unsigned short int userpin;
-		if (m_PIN == PIN)
+		for (unsigned int i = 0; i < 2; i++)
 		{
-			m_privilage = true;
+			unsigned short int userpin;
+			if (m_PIN == PIN)
+			{
+				m_privilage = true;
+			}
+			if (m_privilage)
+			{
+				LOG("Dostep zostal przyznany");
+				std::cout << std::endl;
+				break;
+			}
+			if (!m_privilage)
+			{
+				LOG("PIN  niepoprawny. Wprowadz ponownie");
+				std::cin >> userpin;
+			}
 		}
-		if (m_privilage)
-		{
-			LOG("Dostep zostal przyznany");
-			std::cout << std::endl;
-		}
-		if (!m_privilage)
-		{
-			LOG("PIN  niepoprawny. Wprowadz ponownie");
-			std::cin >> userpin;
-			VerifyPin(userpin);
-		}
+		std::terminate();
 	}
 
 	void Show_Balance()
