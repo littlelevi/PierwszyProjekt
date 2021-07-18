@@ -20,6 +20,7 @@ public:
 	}
 	void VerifyPin(unsigned short int& PIN)
 	{
+		unsigned short int userpin;
 		if (m_PIN == PIN)
 		{
 			m_privilage = true;
@@ -31,16 +32,16 @@ public:
 		}
 		if (!m_privilage)
 		{
-			LOG("Brak dostepu do karty");
-			LOG("Koncze dzialanie");
-			std::terminate();
+			LOG("PIN  niepoprawny. Wprowadz ponownie");
+			std::cin >> userpin;
+			VerifyPin(userpin);
 		}
 	}
 
 	void Show_Balance()
 	{
 		std::cout << "Na koncie jest: " << m_cash << " zl" << std::endl << std::endl;
-		ShowMenu();
+		ShowOptions();
 	}
 
 	void Deposit_Cash()
@@ -53,7 +54,7 @@ public:
 			Update_Cash(Deposit);
 		}
 		std::cout << std::endl;
-		ShowMenu();
+		ShowOptions();
 	}
 
 	void Withdraw_Cash()
@@ -66,7 +67,18 @@ public:
 			Update_Cash(-fabs(Withdraw));
 		}
 		std::cout << std::endl;
-		ShowMenu();
+		ShowOptions();
+	}
+
+	void ShowOptions()
+	{
+		bool choice;
+		LOG("Czy chcesz kontynuowac?");
+		LOG("1 - TAK");
+		LOG("0 - NIE");
+		std::cin >> choice;
+		if (choice) ShowMenu();
+		else Exit();
 	}
 
 	void Exit()
