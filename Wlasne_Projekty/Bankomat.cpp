@@ -5,10 +5,13 @@
 #define LOG(message) std::cout << message << std::endl;
 class CashPoint {
 private:
+	static short int i;
 	unsigned int m_PIN;
 	bool m_privilage = false;
 	long double m_cash = 0;
-
+	void ClearScreen() {
+		std::cout << "\033[2J\033[1;1H";
+	}
 public:
 	void SetPin(unsigned short int& PIN)
 	{
@@ -17,12 +20,10 @@ public:
 		Sleep(1000); LOG("2");
 		Sleep(1000); LOG("1");
 		Sleep(1000);
-		system("cls");
+		ClearScreen();
 	}
 	void VerifyPin(unsigned short int& PIN)
 	{
-		for (unsigned int i = 0; i < 2; i++)
-		{
 			unsigned short int userpin;
 			if (m_PIN == PIN)
 			{
@@ -32,15 +33,18 @@ public:
 			{
 				LOG("Dostep zostal przyznany");
 				std::cout << std::endl;
-				break;
 			}
 			if (!m_privilage)
 			{
-				LOG("PIN  niepoprawny. Wprowadz ponownie");
-				std::cin >> userpin;
+				i++;
+					LOG("PIN  niepoprawny. Wprowadz ponownie");
+					std::cin >> userpin;
+					if (i == 2)
+					{
+						std::terminate();
+					}
+					VerifyPin(userpin);
 			}
-		}
-		std::terminate();
 	}
 
 	void Show_Balance()
@@ -111,6 +115,8 @@ public:
 		if (choice == 3) Exit();
 	}
 };
+
+short int CashPoint::i = 0;
 
 int main()
 {
