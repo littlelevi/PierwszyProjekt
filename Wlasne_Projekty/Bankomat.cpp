@@ -12,7 +12,7 @@ public:
 	void SetPin(unsigned short int& PIN)
 	{
 		m_PIN = PIN;
-		LOG("PIN zostal ustawiony");
+		LOG("PIN zostal ustawionyyy");
 		Sleep(1000); LOG("2");
 		Sleep(1000); LOG("1");
 		Sleep(1000);
